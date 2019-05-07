@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="387963c9dc1e42969983af84511ef0e4" Name="Diagram1">
+        <EntityTypeShape EntityType="CineHitssModelFinish.Cine" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CineHitssModelFinish.Ciudad" Width="1.5" PointX="1.5" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CineHitssModelFinish.Horario" Width="1.5" PointX="0.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="CineHitssModelFinish.Pelicula" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CineHitssModelFinish.sysdiagram" Width="1.5" PointX="5.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CineHitssModelFinish.Usuario" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CineHitssModelFinish.CinePeli" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CineHitssModelFinish.Historial" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CineHitssModelFinish.PeliHora" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="CineHitssModelFinish.FK__Cine__ID_Ciudad__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="CineHitssModelFinish.FK__CinePeli__ID_Cin__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="CineHitssModelFinish.FK__PeliHora__ID_Hor__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="CineHitssModelFinish.FK__CinePeli__ID_Pel__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="CineHitssModelFinish.FK__Historial__ID_Pe__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="CineHitssModelFinish.FK__PeliHora__ID_Pel__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="CineHitssModelFinish.FK__Historial__ID_Us__4F7CD00D" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
