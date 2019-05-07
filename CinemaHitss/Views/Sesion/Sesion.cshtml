@@ -1,0 +1,26 @@
+﻿@{
+    Layout = "~/Views/Shared/BasicView.cshtml";
+}
+
+
+@using (Html.BeginForm("Sesion", "Sesion", FormMethod.Post))
+{
+    <style>
+        label {
+            color: azure
+        }
+    </style>
+    <br /> <br />
+    <label>Usuario</label>
+    <input type="text" value="" name="usuario" required />
+    <br /> <br />
+    <label>Contraseña</label>
+    <input type="password" value="" name="psw" required />
+    <br /> <br />
+    <input type="submit" value="Log In" name="boton" />
+
+
+}
+
+
+

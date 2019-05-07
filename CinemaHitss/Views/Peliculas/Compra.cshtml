@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Compra";
+}
+
+<div class="jumbotron">
+    <h1>Compra</h1>
+</div>
+
+<p>Compra exitosa</p>
+<h3>@ViewBag.Precio</h3>
+<p><script>Session["Precio"]</script></p>
+
+<li>@Html.ActionLink("Regresar", "Index", "Peliculas")</li>
+
+

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<CinemaHitss.Historial>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="jumbotron">
+    <h1>Index</h1>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+           <p>Peliculas</p>
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    string nombre = item.Usuario.Nombre;
+    string user = (string)Session["Login"];
+
+    if (nombre.Equals(user))
+    {
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pelicula.Nombre)
+        </td>
+    </tr>
+    }
+}
+
+</table>
+<li>@Html.ActionLink("Regresar a Puntos ", "IndexPuntos", "Usuarios")</li>

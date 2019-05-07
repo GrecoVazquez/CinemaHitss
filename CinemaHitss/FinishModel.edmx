@@ -1,0 +1,593 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CineHitssModelFinish.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cine">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_Ciudad" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CineHitss.dbo.CinePeli' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CinePeli">
+          <Key>
+            <PropertyRef Name="ID_Cine" />
+            <PropertyRef Name="ID_Pelicula" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID_Cine" Type="int" Nullable="false" />
+          <Property Name="ID_Pelicula" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ciudad">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CineHitss.dbo.Historial' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Historial">
+          <Key>
+            <PropertyRef Name="ID_Usuario" />
+            <PropertyRef Name="ID_Pelicula" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID_Usuario" Type="int" Nullable="false" />
+          <Property Name="ID_Pelicula" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Horario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pelicula">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Genero" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Clasificacion" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="Duracion" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Sinopsis" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="precio" Type="int" />
+          <Property Name="fechaProyeccion" Type="date" />
+          <Property Name="Imagen" Type="varchar" MaxLength="70" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CineHitss.dbo.PeliHora' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PeliHora">
+          <Key>
+            <PropertyRef Name="ID_Pelicula" />
+            <PropertyRef Name="ID_Hora" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID_Pelicula" Type="int" Nullable="false" />
+          <Property Name="ID_Hora" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contraseña" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Puntos" Type="int" />
+        </EntityType>
+        <Association Name="FK__Cine__ID_Ciudad__29572725">
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="0..1" />
+          <End Role="Cine" Type="Self.Cine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cine">
+              <PropertyRef Name="ID_Ciudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CinePeli__ID_Cin__48CFD27E">
+          <End Role="Cine" Type="Self.Cine" Multiplicity="1" />
+          <End Role="CinePeli" Type="Self.CinePeli" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cine">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CinePeli">
+              <PropertyRef Name="ID_Cine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CinePeli__ID_Pel__49C3F6B7">
+          <End Role="Pelicula" Type="Self.Pelicula" Multiplicity="1" />
+          <End Role="CinePeli" Type="Self.CinePeli" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pelicula">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CinePeli">
+              <PropertyRef Name="ID_Pelicula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__ID_Pe__4E88ABD4">
+          <End Role="Pelicula" Type="Self.Pelicula" Multiplicity="1" />
+          <End Role="Historial" Type="Self.Historial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pelicula">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Historial">
+              <PropertyRef Name="ID_Pelicula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__ID_Us__4F7CD00D">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Historial" Type="Self.Historial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Historial">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PeliHora__ID_Hor__4BAC3F29">
+          <End Role="Horario" Type="Self.Horario" Multiplicity="1" />
+          <End Role="PeliHora" Type="Self.PeliHora" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PeliHora">
+              <PropertyRef Name="ID_Hora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PeliHora__ID_Pel__4CA06362">
+          <End Role="Pelicula" Type="Self.Pelicula" Multiplicity="1" />
+          <End Role="PeliHora" Type="Self.PeliHora" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pelicula">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PeliHora">
+              <PropertyRef Name="ID_Pelicula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CineHitssModelFinishStoreContainer">
+          <EntitySet Name="Cine" EntityType="Self.Cine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ciudad" EntityType="Self.Ciudad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Horario" EntityType="Self.Horario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pelicula" EntityType="Self.Pelicula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CinePeli" EntityType="Self.CinePeli" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CinePeli].[ID_Cine] AS [ID_Cine], 
+    [CinePeli].[ID_Pelicula] AS [ID_Pelicula], 
+    [CinePeli].[ID] AS [ID]
+    FROM [dbo].[CinePeli] AS [CinePeli]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Historial" EntityType="Self.Historial" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Historial].[ID_Usuario] AS [ID_Usuario], 
+    [Historial].[ID_Pelicula] AS [ID_Pelicula], 
+    [Historial].[ID] AS [ID]
+    FROM [dbo].[Historial] AS [Historial]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PeliHora" EntityType="Self.PeliHora" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PeliHora].[ID_Pelicula] AS [ID_Pelicula], 
+    [PeliHora].[ID_Hora] AS [ID_Hora], 
+    [PeliHora].[ID] AS [ID]
+    FROM [dbo].[PeliHora] AS [PeliHora]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Cine__ID_Ciudad__29572725" Association="Self.FK__Cine__ID_Ciudad__29572725">
+            <End Role="Ciudad" EntitySet="Ciudad" />
+            <End Role="Cine" EntitySet="Cine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CinePeli__ID_Cin__48CFD27E" Association="Self.FK__CinePeli__ID_Cin__48CFD27E">
+            <End Role="Cine" EntitySet="Cine" />
+            <End Role="CinePeli" EntitySet="CinePeli" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CinePeli__ID_Pel__49C3F6B7" Association="Self.FK__CinePeli__ID_Pel__49C3F6B7">
+            <End Role="Pelicula" EntitySet="Pelicula" />
+            <End Role="CinePeli" EntitySet="CinePeli" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__ID_Pe__4E88ABD4" Association="Self.FK__Historial__ID_Pe__4E88ABD4">
+            <End Role="Pelicula" EntitySet="Pelicula" />
+            <End Role="Historial" EntitySet="Historial" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__ID_Us__4F7CD00D" Association="Self.FK__Historial__ID_Us__4F7CD00D">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Historial" EntitySet="Historial" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PeliHora__ID_Hor__4BAC3F29" Association="Self.FK__PeliHora__ID_Hor__4BAC3F29">
+            <End Role="Horario" EntitySet="Horario" />
+            <End Role="PeliHora" EntitySet="PeliHora" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PeliHora__ID_Pel__4CA06362" Association="Self.FK__PeliHora__ID_Pel__4CA06362">
+            <End Role="Pelicula" EntitySet="Pelicula" />
+            <End Role="PeliHora" EntitySet="PeliHora" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CineHitssModelFinish" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cine">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_Ciudad" Type="Int32" />
+          <NavigationProperty Name="Ciudad" Relationship="Self.FK__Cine__ID_Ciudad__29572725" FromRole="Cine" ToRole="Ciudad" />
+          <NavigationProperty Name="CinePelis" Relationship="Self.FK__CinePeli__ID_Cin__48CFD27E" FromRole="Cine" ToRole="CinePeli" />
+        </EntityType>
+        <EntityType Name="Ciudad">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cines" Relationship="Self.FK__Cine__ID_Ciudad__29572725" FromRole="Ciudad" ToRole="Cine" />
+        </EntityType>
+        <EntityType Name="Horario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="PeliHoras" Relationship="Self.FK__PeliHora__ID_Hor__4BAC3F29" FromRole="Horario" ToRole="PeliHora" />
+        </EntityType>
+        <EntityType Name="Pelicula">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Genero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Clasificacion" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Duracion" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Sinopsis" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="precio" Type="Int32" />
+          <Property Name="fechaProyeccion" Type="DateTime" Precision="0" />
+          <Property Name="Imagen" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CinePelis" Relationship="Self.FK__CinePeli__ID_Pel__49C3F6B7" FromRole="Pelicula" ToRole="CinePeli" />
+          <NavigationProperty Name="Historials" Relationship="Self.FK__Historial__ID_Pe__4E88ABD4" FromRole="Pelicula" ToRole="Historial" />
+          <NavigationProperty Name="PeliHoras" Relationship="Self.FK__PeliHora__ID_Pel__4CA06362" FromRole="Pelicula" ToRole="PeliHora" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Puntos" Type="Int32" />
+          <NavigationProperty Name="Historials" Relationship="Self.FK__Historial__ID_Us__4F7CD00D" FromRole="Usuario" ToRole="Historial" />
+        </EntityType>
+        <EntityType Name="CinePeli">
+          <Key>
+            <PropertyRef Name="ID_Cine" />
+            <PropertyRef Name="ID_Pelicula" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID_Cine" Type="Int32" Nullable="false" />
+          <Property Name="ID_Pelicula" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Cine" Relationship="Self.FK__CinePeli__ID_Cin__48CFD27E" FromRole="CinePeli" ToRole="Cine" />
+          <NavigationProperty Name="Pelicula" Relationship="Self.FK__CinePeli__ID_Pel__49C3F6B7" FromRole="CinePeli" ToRole="Pelicula" />
+        </EntityType>
+        <EntityType Name="Historial">
+          <Key>
+            <PropertyRef Name="ID_Usuario" />
+            <PropertyRef Name="ID_Pelicula" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID_Usuario" Type="Int32" Nullable="false" />
+          <Property Name="ID_Pelicula" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Pelicula" Relationship="Self.FK__Historial__ID_Pe__4E88ABD4" FromRole="Historial" ToRole="Pelicula" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Historial__ID_Us__4F7CD00D" FromRole="Historial" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="PeliHora">
+          <Key>
+            <PropertyRef Name="ID_Pelicula" />
+            <PropertyRef Name="ID_Hora" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID_Pelicula" Type="Int32" Nullable="false" />
+          <Property Name="ID_Hora" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Horario" Relationship="Self.FK__PeliHora__ID_Hor__4BAC3F29" FromRole="PeliHora" ToRole="Horario" />
+          <NavigationProperty Name="Pelicula" Relationship="Self.FK__PeliHora__ID_Pel__4CA06362" FromRole="PeliHora" ToRole="Pelicula" />
+        </EntityType>
+        <Association Name="FK__Cine__ID_Ciudad__29572725">
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="0..1" />
+          <End Role="Cine" Type="Self.Cine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cine">
+              <PropertyRef Name="ID_Ciudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CinePeli__ID_Cin__48CFD27E">
+          <End Role="Cine" Type="Self.Cine" Multiplicity="1" />
+          <End Role="CinePeli" Type="Self.CinePeli" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cine">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CinePeli">
+              <PropertyRef Name="ID_Cine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PeliHora__ID_Hor__4BAC3F29">
+          <End Role="Horario" Type="Self.Horario" Multiplicity="1" />
+          <End Role="PeliHora" Type="Self.PeliHora" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PeliHora">
+              <PropertyRef Name="ID_Hora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CinePeli__ID_Pel__49C3F6B7">
+          <End Role="Pelicula" Type="Self.Pelicula" Multiplicity="1" />
+          <End Role="CinePeli" Type="Self.CinePeli" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pelicula">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CinePeli">
+              <PropertyRef Name="ID_Pelicula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__ID_Pe__4E88ABD4">
+          <End Role="Pelicula" Type="Self.Pelicula" Multiplicity="1" />
+          <End Role="Historial" Type="Self.Historial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pelicula">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Historial">
+              <PropertyRef Name="ID_Pelicula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PeliHora__ID_Pel__4CA06362">
+          <End Role="Pelicula" Type="Self.Pelicula" Multiplicity="1" />
+          <End Role="PeliHora" Type="Self.PeliHora" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pelicula">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PeliHora">
+              <PropertyRef Name="ID_Pelicula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__ID_Us__4F7CD00D">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Historial" Type="Self.Historial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Historial">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CineHitssEntitiesFinish" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cines" EntityType="Self.Cine" />
+          <EntitySet Name="Ciudads" EntityType="Self.Ciudad" />
+          <EntitySet Name="Horarios" EntityType="Self.Horario" />
+          <EntitySet Name="Peliculas" EntityType="Self.Pelicula" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <EntitySet Name="CinePelis" EntityType="Self.CinePeli" />
+          <EntitySet Name="Historials" EntityType="Self.Historial" />
+          <EntitySet Name="PeliHoras" EntityType="Self.PeliHora" />
+          <AssociationSet Name="FK__Cine__ID_Ciudad__29572725" Association="Self.FK__Cine__ID_Ciudad__29572725">
+            <End Role="Ciudad" EntitySet="Ciudads" />
+            <End Role="Cine" EntitySet="Cines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CinePeli__ID_Cin__48CFD27E" Association="Self.FK__CinePeli__ID_Cin__48CFD27E">
+            <End Role="Cine" EntitySet="Cines" />
+            <End Role="CinePeli" EntitySet="CinePelis" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PeliHora__ID_Hor__4BAC3F29" Association="Self.FK__PeliHora__ID_Hor__4BAC3F29">
+            <End Role="Horario" EntitySet="Horarios" />
+            <End Role="PeliHora" EntitySet="PeliHoras" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CinePeli__ID_Pel__49C3F6B7" Association="Self.FK__CinePeli__ID_Pel__49C3F6B7">
+            <End Role="Pelicula" EntitySet="Peliculas" />
+            <End Role="CinePeli" EntitySet="CinePelis" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__ID_Pe__4E88ABD4" Association="Self.FK__Historial__ID_Pe__4E88ABD4">
+            <End Role="Pelicula" EntitySet="Peliculas" />
+            <End Role="Historial" EntitySet="Historials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PeliHora__ID_Pel__4CA06362" Association="Self.FK__PeliHora__ID_Pel__4CA06362">
+            <End Role="Pelicula" EntitySet="Peliculas" />
+            <End Role="PeliHora" EntitySet="PeliHoras" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__ID_Us__4F7CD00D" Association="Self.FK__Historial__ID_Us__4F7CD00D">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Historial" EntitySet="Historials" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CineHitssModelFinishStoreContainer" CdmEntityContainer="CineHitssEntitiesFinish">
+          <EntitySetMapping Name="Cines">
+            <EntityTypeMapping TypeName="CineHitssModelFinish.Cine">
+              <MappingFragment StoreEntitySet="Cine">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_Ciudad" ColumnName="ID_Ciudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ciudads">
+            <EntityTypeMapping TypeName="CineHitssModelFinish.Ciudad">
+              <MappingFragment StoreEntitySet="Ciudad">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Horarios">
+            <EntityTypeMapping TypeName="CineHitssModelFinish.Horario">
+              <MappingFragment StoreEntitySet="Horario">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Peliculas">
+            <EntityTypeMapping TypeName="CineHitssModelFinish.Pelicula">
+              <MappingFragment StoreEntitySet="Pelicula">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="Clasificacion" ColumnName="Clasificacion" />
+                <ScalarProperty Name="Duracion" ColumnName="Duracion" />
+                <ScalarProperty Name="Sinopsis" ColumnName="Sinopsis" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="fechaProyeccion" ColumnName="fechaProyeccion" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CineHitssModelFinish.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="CineHitssModelFinish.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+                <ScalarProperty Name="Puntos" ColumnName="Puntos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CinePelis">
+            <EntityTypeMapping TypeName="CineHitssModelFinish.CinePeli">
+              <MappingFragment StoreEntitySet="CinePeli">
+                <ScalarProperty Name="ID_Cine" ColumnName="ID_Cine" />
+                <ScalarProperty Name="ID_Pelicula" ColumnName="ID_Pelicula" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Historials">
+            <EntityTypeMapping TypeName="CineHitssModelFinish.Historial">
+              <MappingFragment StoreEntitySet="Historial">
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="ID_Pelicula" ColumnName="ID_Pelicula" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PeliHoras">
+            <EntityTypeMapping TypeName="CineHitssModelFinish.PeliHora">
+              <MappingFragment StoreEntitySet="PeliHora">
+                <ScalarProperty Name="ID_Pelicula" ColumnName="ID_Pelicula" />
+                <ScalarProperty Name="ID_Hora" ColumnName="ID_Hora" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

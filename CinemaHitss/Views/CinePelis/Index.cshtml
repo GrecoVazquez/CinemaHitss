@@ -1,0 +1,56 @@
+﻿@model IEnumerable<CinemaHitss.CinePeli>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="jumbotron">
+    <h1>Peliculas</h1>
+</div>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Cine.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pelicula.Nombre) de Pelicula
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+
+        string cine = (string)Session["Cine"];
+        Console.Write(cine);
+
+        string cines = item.Cine.Nombre;
+
+        if (cines.Equals(cine))
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cine.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pelicula.Nombre)
+                </td>
+              
+            </tr>
+
+        }
+
+
+
+    }
+
+
+
+</table>
+<li>@Html.ActionLink("Regresar a Cines ", "Index", "Cines")</li>
+<li>@Html.ActionLink("Adquirir entradas", "Index", "Peliculas")</li>
+

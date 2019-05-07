@@ -1,0 +1,47 @@
+﻿@model IEnumerable<CinemaHitss.Cine>
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+}
+
+<div class="jumbotron">
+    <h1>Cines</h1>
+</div>
+
+
+@using (Html.BeginForm())
+{
+<p  id="cinee">
+    Cine: @Html.TextBox("searchCine") <br />
+    <input type="submit" value="Filter" />
+</p>
+}
+    </p>
+<table class="table">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ciudad.Nombre)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ciudad.Nombre)
+                </td>
+
+            </tr>
+        }
+
+    </table>

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<CinemaHitss.Usuario>
+
+@{
+    ViewBag.Title = "Puntos";
+}
+
+<div class="jumbotron">
+    <h1>Puntos obtenidos</h1>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Correo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Puntos)
+        </th>       
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        string nombre = item.Nombre;
+        string sessi = (string)Session["Login"];
+
+        int? puntos = item.Puntos;
+        System.Web.HttpContext.Current.Session["Puntos"] = puntos;    
+
+        if (nombre.Equals(sessi))
+        {
+            if (puntos > 0)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(modelItem => item.Correo)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(modelItem => item.Puntos)
+                    </th>
+                </tr>
+
+            }
+            else
+            {
+                <th>
+                    <p>No tiene puntos</p>
+                </th>
+            }
+        }
+
+    }
+
+</table>
+<li>@Html.ActionLink("Ver historial ", "Index", "Historials")</li>
+<li>@Html.ActionLink("Regresar a inicio ", "Index", "Home")</li>
